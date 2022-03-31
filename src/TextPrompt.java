@@ -202,7 +202,7 @@ public class TextPrompt extends JLabel
  *    Title: Text Prompt
  *    Author: Rob Camick
  *    Date: 2009
- *    Code version: 1.0
+ *    Code version:
  *    Type: Source Code
  *    Availability: http://www.camick.com/java/source/TextPrompt.java
  *
