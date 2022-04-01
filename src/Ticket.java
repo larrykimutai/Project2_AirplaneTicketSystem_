@@ -28,14 +28,21 @@ public class Ticket extends Airplane{
   public void setFName(String fname){FName = fname;}
   public void setLName(String lname){LName = lname;}
   public void setSnack(String snack) {Snack = snack;}
-  public void setSeatClass(String seatClass) {SeatClass =seatClass;}
+  public void setSeatClass(String seatClass) {
+    if(seatClass.equals("Main Business")) setNumSeatsBusiness();
+    if(seatClass.equals("Basic Economy")) setNumSeatsEconomy();
+    SeatClass = seatClass;
+  }
   public void setPrice(int price){Price = price;}
 
   //accessors
   public String getFName(){return FName;}
   public String getLName(){return LName;}
   public String getSnack(){return Snack;}
-  public String getSeatClass(){return SeatClass;}
+  public String getSeatClass(){
+
+    return SeatClass;
+  }
   public int getPrice(){return Price;}
 
 }

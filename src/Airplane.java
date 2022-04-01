@@ -5,8 +5,6 @@ public abstract class Airplane {
           CityDestination, DateDeparture,
           TimeDeparture;
   private int FlightNum;
-  private int NumSeatsEconomy;
-  private int NumSeatsBusiness;
 
 
   //default constructor
@@ -27,8 +25,6 @@ public abstract class Airplane {
     DateDeparture = dateDeparture;
     TimeDeparture = timeDeparture;
     FlightNum = flightNum;
-    NumSeatsEconomy = numSeatsEconomy;
-    NumSeatsBusiness = numSeatsBusiness;
   }
 
 
@@ -40,8 +36,8 @@ public abstract class Airplane {
   public void setDateDeparture(String dateDeparture)      {DateDeparture = dateDeparture;}
   public void setTimeDeparture(String timeDeparture)      {TimeDeparture = timeDeparture;}
   public void setFlightNum(int flightNum)                 {FlightNum = flightNum;}
-  public void setNumSeatsEconomy(int numSeatsEconomy)     {NumSeatsEconomy = numSeatsEconomy;}
-  public void setNumSeatsBusiness(int numSeatsBusiness)   {NumSeatsBusiness = numSeatsBusiness;}
+  public void setNumSeatsEconomy()                        {Main.EcoCntr++;}
+  public void setNumSeatsBusiness()                       {Main.BusCntr++;}
 
 
 
@@ -52,8 +48,12 @@ public abstract class Airplane {
   public String getDateDeparture()    {return DateDeparture;}
   public String getTimeDeparture()    {return TimeDeparture;}
   public int getFlightNum()           {return FlightNum;}
-  public int getNumSeatsEconomy()     {return NumSeatsEconomy;}
-  public int getNumSeatsBusiness()    {return NumSeatsBusiness;}
+  public int getNumSeatsEconomy()     {return Main.EcoCntr;}
+  public int getNumSeatsBusiness()    {return Main.BusCntr;}
+
+  public static void numSeats(){
+
+  }
 }
 
 

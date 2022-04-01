@@ -3,17 +3,30 @@ import javax.swing.text.DateFormatter;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
 public class Main {
+  public static int BusCntr = 0;
+  public static int EcoCntr = 0;
+  public static boolean test = true;
 
   public static void main(String[] args){
-    Ticket cust1 = new Ticket();
-    GUI(cust1);
+    ArrayList<Ticket> Customers = new ArrayList<>();
+    int cntr = 0;
+    do{
+      Customers.add(new Ticket());
+      ReserveTicket(Customers.get(cntr));
+      cntr++;
+    }while(test);
+
+    System.out.println("Business: " + BusCntr + "\nEconomy: " + EcoCntr);
   }
 
-  public static void GUI(Ticket customer){
+
+
+  public static void ReserveTicket(Ticket customer){
     JTextField Fname = new JTextField(5);
     new TextPrompt("First Name", Fname);
     JTextField Lname = new JTextField(5);
@@ -57,8 +70,9 @@ public class Main {
     panel.add(Box.createVerticalStrut(20));
     panel.add(date);
 
-
-    JOptionPane.showConfirmDialog(null, panel, "Reserve Ticket",
+    UIManager.put("OptionPane.okButtonText", "Next");
+    UIManager.put("OptionPane.cancelButtonText", "Close");
+    int input = JOptionPane.showConfirmDialog(null, panel, "Reserve Ticket",
             JOptionPane.OK_CANCEL_OPTION);
 
 
@@ -86,11 +100,14 @@ public class Main {
     customer.setCityDestination(Objects.requireNonNull(c.getSelectedItem()).toString());
     if(date.getText().isEmpty()) customer.setDateDeparture(df.format(now));
     customer.setDateDeparture(date.getText());
+    customer.setSeatClass(Objects.requireNonNull(comboBox.getSelectedItem().toString()));
 
 
 
 
     System.out.println(Fname.getText());
+
+    if(input == JOptionPane.CANCEL_OPTION){test = false;}
   }
 
 }
