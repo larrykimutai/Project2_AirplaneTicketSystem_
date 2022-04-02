@@ -77,14 +77,6 @@ public abstract class Airplane {
   public int getNumSeatsEconomy()     {return Main.NumSeatsEconomy;}
   public int getNumSeatsBusiness()    {return Main.NumSeatsBusiness;}
 
-  public static void numSeats(){
-
-  }
 }
 
 
-/******************************************************************************
- * Information of airplane capacity based on Bombardier CRJ-700
- *
- * https://www.delta.com/us/en/aircraft/bombardier/crj-700
- * ***************************************************************************/

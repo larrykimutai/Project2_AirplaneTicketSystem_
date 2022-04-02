@@ -1,10 +1,7 @@
 import javax.swing.*;
-import javax.swing.text.DateFormatter;
-import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 
 public class Main {
@@ -71,7 +68,7 @@ public class Main {
 
 
     panel.add(Box.createVerticalStrut(20));
-    final JComboBox<String> comboBox = new JComboBox<String>(seatClass);
+    final JComboBox<String> comboBox = new JComboBox<>(seatClass);
     comboBox.setVisible(true);
     panel.add(comboBox);
 
@@ -166,4 +163,12 @@ public class Main {
       }
     }
 
-}}
+  }
+}
+
+
+/******************************************************************************
+ * Information of airplane capacity based on Bombardier CRJ-700
+ *
+ * https://www.delta.com/us/en/aircraft/bombardier/crj-700
+ * ***************************************************************************/
