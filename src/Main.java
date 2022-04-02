@@ -8,9 +8,9 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Main {
-  public static int BusCntr = 0;
-  public static int EcoCntr = 0;
   public static boolean test = true;
+  public static int NumSeatsEconomy = 44;
+  public static int NumSeatsBusiness = 25;
 
   public static void main(String[] args){
     ArrayList<Ticket> Customers = new ArrayList<>();
@@ -21,7 +21,15 @@ public class Main {
       cntr++;
     }while(test);
 
-    System.out.println("Business: " + BusCntr + "\nEconomy: " + EcoCntr);
+    Customers.remove(Customers.size() - 1);
+    for (Ticket customer : Customers) {
+      printTicket(customer);
+    }
+
+  }
+
+  public static void printTicket(Ticket customer){
+    System.out.println(customer.toString());
   }
 
 
@@ -75,39 +83,87 @@ public class Main {
     int input = JOptionPane.showConfirmDialog(null, panel, "Reserve Ticket",
             JOptionPane.OK_CANCEL_OPTION);
 
+    if(input == JOptionPane.CANCEL_OPTION) test = false;
+
+    if(input == JOptionPane.OK_OPTION){
+      if (Objects.requireNonNull(comboBox.getSelectedItem()).toString().equals("Main Business")) {
+        JPanel food = new JPanel();
+        String[] snck = {"Cookies", "Peanuts"};
+        final JComboBox<String> snckJCB = new JComboBox<>(snck);
+        snckJCB.setVisible(true);
+
+        food.add(snckJCB);
+
+        JOptionPane.showConfirmDialog(null, food, "Pick a snack", JOptionPane.OK_CANCEL_OPTION);
+
+        customer.setSnack(Objects.requireNonNull(snckJCB.getSelectedItem()).toString());
+
+      }else if(Objects.requireNonNull(comboBox.getSelectedItem()).toString().equals("Basic Economy")){
+        customer.setSnack("Unavailable");
+      }
+
+      customer.setFName(Fname.getText());
+      customer.setLName(Lname.getText());
+      customer.setCityDeparture(Objects.requireNonNull(cb.getSelectedItem()).toString());
+      customer.setCityDestination(Objects.requireNonNull(c.getSelectedItem()).toString());
+      if (date.getText().isEmpty()) customer.setDateDeparture(df.format(now));
+      else customer.setDateDeparture(date.getText());
+      customer.setSeatClass(Objects.requireNonNull(comboBox.getSelectedItem().toString()));
 
 
-    boolean snack = false;
+      System.out.println(Fname.getText());
 
-    if(Objects.requireNonNull(comboBox.getSelectedItem()).toString().equals("Main Business")) {
-      JPanel food = new JPanel();
-      String[] snck = {"Cookies", "Peanuts"};
-      final JComboBox<String> snckJCB = new JComboBox<>(snck);
-      snckJCB.setVisible(true);
+      if (input == JOptionPane.CANCEL_OPTION) {
+        test = false;
+        if (customer.getSeatClass().equals("Basic Economy")) {
+          Main.NumSeatsEconomy++;
+        }
+        if (customer.getSeatClass().equals("Main Business")) {
+          Main.NumSeatsBusiness++;
+        }
+      }
+      if (Main.NumSeatsEconomy < 1) {
+        JOptionPane.showMessageDialog(null, "No more Economy cabin " +
+                "seats available on this flight");
+        int seat = JOptionPane.showConfirmDialog(null, "Would you like to upgrade to Business " +
+                "Class?");
+        if (seat == JOptionPane.OK_OPTION) {
+          customer.setSeatClass("Main Business");
+        }
+        if (seat == JOptionPane.NO_OPTION) {
+          JOptionPane.showMessageDialog(null, "No available " +
+                  "seats for class selection on this flight");
+        }
+        if (seat == JOptionPane.CANCEL_OPTION) {
+          System.exit(0);
+        }
+        if (Main.NumSeatsBusiness < 1) {
+          JOptionPane.showMessageDialog(null, "No available seats on this flight");
+          System.exit(0);
+        }
+      }
 
-      food.add(snckJCB);
+      if (Main.NumSeatsBusiness < 1) {
+        JOptionPane.showMessageDialog(null, "No more Business cabin " +
+                "seats available on this flight");
+        int seat = JOptionPane.showConfirmDialog(null, "Would you like to downgrade to Economy " +
+                "Class?");
+        if (seat == JOptionPane.OK_OPTION) {
+          customer.setSeatClass("Basic Economy");
+        }
 
-      JOptionPane.showConfirmDialog(null, food, "Pick a snack", JOptionPane.OK_CANCEL_OPTION);
-
-      customer.setSnack(Objects.requireNonNull(snckJCB.getSelectedItem()).toString());
-
-      snack = true;
+        if (seat == JOptionPane.NO_OPTION) {
+          JOptionPane.showMessageDialog(null, "No available " +
+                  "seats for class selection on this flight");
+        }
+        if (seat == JOptionPane.CANCEL_OPTION) {
+          System.exit(0);
+          if (Main.NumSeatsEconomy < 1) {
+            JOptionPane.showMessageDialog(null, "No available seats on this flight");
+            System.exit(0);
+          }
+        }
+      }
     }
 
-    customer.setFName(Fname.getText());
-    customer.setLName(Lname.getText());
-    customer.setCityDeparture(Objects.requireNonNull(cb.getSelectedItem()).toString());
-    customer.setCityDestination(Objects.requireNonNull(c.getSelectedItem()).toString());
-    if(date.getText().isEmpty()) customer.setDateDeparture(df.format(now));
-    customer.setDateDeparture(date.getText());
-    customer.setSeatClass(Objects.requireNonNull(comboBox.getSelectedItem().toString()));
-
-
-
-
-    System.out.println(Fname.getText());
-
-    if(input == JOptionPane.CANCEL_OPTION){test = false;}
-  }
-
-}
+}}
