@@ -6,7 +6,12 @@ public abstract class Airplane {
   // variables
   private String Airline, CityDeparture,
           CityDestination, DateDeparture,
-          FlightNum, TimeDeparture;;
+          FlightNum, TimeDeparture;
+  private int NumSeatsF1;
+  private static int instanceNumSeatsF1;
+
+  private int NumSeatsF2;
+  private static int instanceNumSeatsF2;
 
   LocalDate now = LocalDate.now();
   DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -17,14 +22,14 @@ public abstract class Airplane {
   public Airplane(){
 
     this("Delta Airlines", null,
-            null, null,
-            null, null);
+            null, "12/06/2022",
+            null, null, 20);
   }
 
   //constructors
   public Airplane(String airline, String cityDeparture,
                   String cityDestination, String dateDeparture,
-                  String timeDeparture, String flightNum){
+                  String timeDeparture, String flightNum, int numSeats){
 
     Airline = airline;
     CityDeparture = cityDeparture;
@@ -40,11 +45,10 @@ public abstract class Airplane {
   //mutators
   public void setAirline(String airline)                  {Airline = airline;}
   public void setCityDeparture(String cityDeparture)      {CityDeparture = cityDeparture;}
-  public void setCityDestination(String cityDestination)  {CityDestination = cityDestination;}
-  public void setDateDeparture(String dateDeparture)      {
-    //if(dateDeparture)
-    DateDeparture = dateDeparture;}
+  public void setCityDestination(String cityDestination)  {CityDestination = cityDestination;
+    setFlightNum();}
   public void setTimeDeparture(String timeDeparture)      {TimeDeparture = timeDeparture;}
+  public void setDateDeparture(String dateDeparture)      {DateDeparture = dateDeparture;}
   public void setFlightNum()                 {
     if(CityDeparture.equals("Greensboro") && CityDestination.equals("Washington DC")){
       FlightNum = "001";
@@ -57,13 +61,16 @@ public abstract class Airplane {
       setAirline("Delta Airlines");
     }
   }
-  public void setNumSeatsEconomy(){
-   Main.NumSeatsEconomy--;
 
+  public void setNumSeatsF1(){
+    instanceNumSeatsF1--;
+    NumSeatsF1 = instanceNumSeatsF1;
   }
-  public void setNumSeatsBusiness(){
-    Main.NumSeatsBusiness--;
+
+  public int getNumSeatsF1(){
+    return NumSeatsF1;
   }
+
 
 
 
@@ -74,8 +81,6 @@ public abstract class Airplane {
   public String getDateDeparture()    {return DateDeparture;}
   public String getTimeDeparture()    {return TimeDeparture;}
   public String getFlightNum()           {return FlightNum;}
-  public int getNumSeatsEconomy()     {return Main.NumSeatsEconomy;}
-  public int getNumSeatsBusiness()    {return Main.NumSeatsBusiness;}
 
 }
 

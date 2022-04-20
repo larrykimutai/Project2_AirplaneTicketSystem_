@@ -1,6 +1,6 @@
 public class Ticket extends Airplane{
 
-  private String FName, LName, Snack, SeatClass;
+  private String FName, LName, SeatClass;
   private String Price;
 
   //default constructor
@@ -8,18 +8,18 @@ public class Ticket extends Airplane{
     super();
     FName = null;
     LName = null;
-    Snack = "";
-    SeatClass = "Business";
+    SeatClass = "Basic Economy";
     Price = "$300";
   }
 
   //constructor
   public Ticket(String airline, String cityDeparture,
                 String cityDestination, String dateDeparture,
-                String timeDeparture, String flightNum){
+                String timeDeparture, String flightNum, int numSeats){
 
       super(airline, cityDeparture, cityDestination,
-              dateDeparture, timeDeparture, flightNum);
+              dateDeparture, timeDeparture, flightNum, numSeats);
+
   }
 
 
@@ -27,18 +27,10 @@ public class Ticket extends Airplane{
   //mutators
   public void setFName(String fname){FName = fname;}
   public void setLName(String lname){LName = lname;}
-  public void setSnack(String snack) {
 
-    Snack = snack;}
-  public void setSeatClass(String seatClass) {
-    if(seatClass.equals("Main Business")){
-      setNumSeatsBusiness();
-      setFlightNum();
-      setPrice("$450");
-      SeatNumber(Main.NumSeatsBusiness);
-    }
-    if(seatClass.equals("Basic Economy")){
-      setNumSeatsEconomy();
+  public void setNumSeats(String seatClass) {
+    if(getFlightNum().equals("001")){
+      setNumSeatsF1();
       setFlightNum();
       setPrice("$300");
       SeatNumber(Main.NumSeatsEconomy);
@@ -50,7 +42,6 @@ public class Ticket extends Airplane{
   //accessors
   public String getFName(){return FName;}
   public String getLName(){return LName;}
-  public String getSnack(){return Snack;}
   public String getSeatClass(){
 
     return SeatClass;
@@ -64,11 +55,11 @@ public class Ticket extends Airplane{
   public int getSeatNumber(){
     return Num;
   }
-
-  public String snack(){
-    if(!(Snack.isEmpty())) return this.getSnack();
-    else return null;
+  public int getNumSeats(){
+    if(getFlightNum().equals("001")) getNumSeatsF1();
+    return 0;
   }
+
 
 
   public String toString(){
@@ -76,7 +67,7 @@ public class Ticket extends Airplane{
             + "\n\nName: " + this.FName + " " + this.LName + "\n\nFlight Number: " + this.getFlightNum() +
             "\n\nDate: " + this.getDateDeparture() + "\nBoarding: " + this.getTimeDeparture() +
             "\n\nFrom: " + this.getCityDeparture() + "\nTo: " + this.getCityDestination() +
-            "\n\nZone: " + this.getSeatClass() + "\nSeat: " +  getSeatNumber() + "\nSnack: " + snack() +
+            "\n\nZone: " + this.getSeatClass() + "\nSeat: " +  getSeatNumber() +
             "\n\nTotal: " + this.getPrice() +
             "\n\n-----------------------------------------------------------------------------------------------------";
   }
