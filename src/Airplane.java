@@ -86,6 +86,7 @@ public abstract class Airplane {
   public String getTimeDeparture()    {return TimeDeparture;}
   public String getFlightNum()           {return FlightNum;}
 
+
 }
 
 
