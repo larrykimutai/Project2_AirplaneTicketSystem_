@@ -5,6 +5,8 @@ public abstract class Airplane {
   private String CityDeparture,
           CityDestination, DateDeparture,
           FlightNum, TimeDeparture;
+
+  //used static variables in order to keep track of seats with each new object creation
   public static int plane1seatsStat = 20;
   public int plane1seats;
   public static int plane2seatsStat = 20;
@@ -13,8 +15,8 @@ public abstract class Airplane {
   //default constructor
   public Airplane(){
 
-    this( null,
-            null, null,
+    this( "Greensboro",
+            "Washington DC", null,
             null, null);
   }
 
@@ -33,6 +35,16 @@ public abstract class Airplane {
   }
 
 
+
+  //accessor
+  public int returnNumSeats1(){
+    return plane1seats;
+  }
+  public int returnNumSeats2(){
+    return plane2seats;
+  }
+
+  //mutator
   public void setSeat(int x){
     if(x == 0){
       plane1seats = plane1seatsStat;
@@ -44,15 +56,6 @@ public abstract class Airplane {
     }
   }
 
-  public int returnNumSeats1(){
-    return plane1seats;
-  }
-  public int returnNumSeats2(){
-    return plane2seats;
-  }
-
-
-  //mutators
   public void setCityDeparture(String cityDeparture)      {
     CityDeparture = cityDeparture;
     if(cityDeparture.equals("Greensboro")){
@@ -67,16 +70,11 @@ public abstract class Airplane {
       setFlightNum("002");
     }
   }
+
   public void setCityDestination(String cityDestination)  {CityDestination = cityDestination;}
-  public void setDateDeparture(String dateDeparture)      {
-    //if(dateDeparture)
-    DateDeparture = dateDeparture;}
+  public void setDateDeparture(String dateDeparture)      {DateDeparture = dateDeparture;}
   public void setTimeDeparture(String timeDeparture)      {TimeDeparture = timeDeparture;}
-  public void setFlightNum(String flightNum)                 {
-    FlightNum = flightNum;
-  }
-
-
+  public void setFlightNum(String flightNum)              {FlightNum = flightNum;}
 
 
   //accessors
@@ -85,6 +83,7 @@ public abstract class Airplane {
   public String getDateDeparture()    {return DateDeparture;}
   public String getTimeDeparture()    {return TimeDeparture;}
   public String getFlightNum()           {return FlightNum;}
+
 
 }
 

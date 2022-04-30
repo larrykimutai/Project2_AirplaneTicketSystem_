@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -8,16 +7,16 @@ public class Main {
   public static boolean test = true;
 
 
-  public static void main(String[] args){
+  public static void main(String[] args) {
 
     //create array of Customer objects to store multiple customers
     ArrayList<Ticket> Customers = new ArrayList<>();
     int cntr = 0;
-    do{
+    do {
       Customers.add(new Ticket());
       ReserveTicket(Customers.get(cntr));
       cntr++;
-    }while(test);
+    } while (test);
 
     Customers.remove(Customers.size() - 1);
     for (Ticket customer : Customers) {
@@ -26,14 +25,15 @@ public class Main {
 
   }
 
-  public static void printTicket(Ticket customer){
+  //Print out each customer receipt
+  public static void printTicket(Ticket customer) {
     System.out.println(customer.toString());
     JOptionPane.showMessageDialog(null, customer.toString());
   }
 
 
-//This method displays a UI that is used to input customer information that is stored in each respective Customer object
-  public static void ReserveTicket(Ticket customer){
+  //This method displays a UI that is used to input customer information that is stored in each respective Customer object
+  public static void ReserveTicket(Ticket customer) {
     JTextField Fname = new JTextField(5);
     new TextPrompt("First Name", Fname);
     JTextField Lname = new JTextField(5);
@@ -66,34 +66,45 @@ public class Main {
     int input = JOptionPane.showConfirmDialog(null, panel, "Reserve Ticket",
             JOptionPane.OK_CANCEL_OPTION);
 
-    if(input == JOptionPane.CLOSED_OPTION){test = false;}
-    if(input == JOptionPane.CANCEL_OPTION){test = false;
+
+    //if the user closes the pane, exit out of the loop
+    if (input == JOptionPane.CLOSED_OPTION) {
+      test = false;
     }
-    if(input == JOptionPane.OK_OPTION) {
+
+    //if the user selects on cancel, exit out of the loop
+    if (input == JOptionPane.CANCEL_OPTION) {
+      test = false;
+    }
+
+    //if user selects okay after entering information, update object with corresponding data
+    if (input == JOptionPane.OK_OPTION) {
       customer.setFName(Fname.getText());
       customer.setLName(Lname.getText());
       customer.setCityDeparture(Objects.requireNonNull(cb.getSelectedItem()).toString());
-      if (customer.getFlightNum().equals("001")) {
-        customer.setSeat(0);
-      } else if (customer.getFlightNum().equals("002")) {
-        customer.setSeat(1);
-      }
+      try {
+        if (customer.getFlightNum().equals("001")) {
+          customer.setSeat(0);
+        } else if (customer.getFlightNum().equals("002")) {
+          customer.setSeat(1);
+        }
+      }catch (NullPointerException npe){System.out.println("Missing information");}
+
+      //custom exception that throws "allTicketSold" exception when seat capacity is reached on either plane
       try {
         int setNum = customer.getSeatNumber();
-        if(setNum <= 0){
+        if (setNum <= 0) {
           throw new allTicketSold();
         }
-      } catch(allTicketSold aTS){
+      } catch (allTicketSold aTS) {
         JOptionPane.showMessageDialog(null,
-                "No more tickets available for customer: " + customer.toString());
+                "No more tickets available for customer: " + customer);
       }
 
-      System.out.println(Fname.getText());
     }
-    }
-
   }
 
+}
 
 
 /******************************************************************************

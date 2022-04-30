@@ -26,13 +26,8 @@ public class Ticket extends Airplane{
   public void setFName(String fname){FName = fname;}
   public void setLName(String lname){LName = lname;}
 
-
-  public void setPrice(String price){Price = price;}
-
   //accessors
-
   public String getPrice(){return Price;}
-
 
   public int getSeatNumber(){
     if(this.getFlightNum().equals("001")) return this.returnNumSeats1();
@@ -42,7 +37,7 @@ public class Ticket extends Airplane{
 
 
 
-
+//toString method to display all customers information
   public String toString(){
     return "-----------------------------------------------------------------------------------------------------"
             + "\n\nName: " + this.FName + " " + this.LName + "\n\nFlight Number: " + this.getFlightNum() +
