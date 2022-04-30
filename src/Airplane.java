@@ -1,32 +1,29 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public abstract class Airplane {
 
+
   // variables
-  private String Airline, CityDeparture,
+  private String CityDeparture,
           CityDestination, DateDeparture,
-          FlightNum, TimeDeparture;;
-
-  LocalDate now = LocalDate.now();
-  DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-  String d = df.format(now);
-
+          FlightNum, TimeDeparture;
+  public static int plane1seatsStat = 20;
+  public int plane1seats;
+  public static int plane2seatsStat = 20;
+  public int plane2seats;
 
   //default constructor
   public Airplane(){
 
-    this("Delta Airlines", null,
+    this( null,
             null, null,
             null, null);
   }
 
   //constructors
-  public Airplane(String airline, String cityDeparture,
+  public Airplane(String cityDeparture,
                   String cityDestination, String dateDeparture,
                   String timeDeparture, String flightNum){
 
-    Airline = airline;
+
     CityDeparture = cityDeparture;
     CityDestination = cityDestination;
     DateDeparture = dateDeparture;
@@ -36,46 +33,58 @@ public abstract class Airplane {
   }
 
 
+  public void setSeat(int x){
+    if(x == 0){
+      plane1seats = plane1seatsStat;
+      plane1seatsStat--;
+    }
+    if(x == 1){
+      plane2seats = plane2seatsStat;
+      plane2seatsStat--;
+    }
+  }
+
+  public int returnNumSeats1(){
+    return plane1seats;
+  }
+  public int returnNumSeats2(){
+    return plane2seats;
+  }
+
 
   //mutators
-  public void setAirline(String airline)                  {Airline = airline;}
-  public void setCityDeparture(String cityDeparture)      {CityDeparture = cityDeparture;}
+  public void setCityDeparture(String cityDeparture)      {
+    CityDeparture = cityDeparture;
+    if(cityDeparture.equals("Greensboro")){
+      setTimeDeparture("6:00 AM");
+      setDateDeparture("12/06/2022");
+      setCityDestination("Washington DC");
+      setFlightNum("001");
+    }else if(cityDeparture.equals("Washington DC")){
+      setTimeDeparture("5:30 PM");
+      setDateDeparture("12/06/2022");
+      setCityDestination("Greensboro");
+      setFlightNum("002");
+    }
+  }
   public void setCityDestination(String cityDestination)  {CityDestination = cityDestination;}
   public void setDateDeparture(String dateDeparture)      {
     //if(dateDeparture)
     DateDeparture = dateDeparture;}
   public void setTimeDeparture(String timeDeparture)      {TimeDeparture = timeDeparture;}
-  public void setFlightNum()                 {
-    if(CityDeparture.equals("Greensboro") && CityDestination.equals("Washington DC")){
-      FlightNum = "001";
-      setTimeDeparture("6:00 AM");
-      setAirline("Delta Airlines");
-    }
-    if(CityDestination.equals("Greensboro") && CityDeparture.equals("Washington DC")){
-      FlightNum = "200";
-      setTimeDeparture("5:30 PM");
-      setAirline("Delta Airlines");
-    }
+  public void setFlightNum(String flightNum)                 {
+    FlightNum = flightNum;
   }
-  public void setNumSeatsEconomy(){
-   Main.NumSeatsEconomy--;
 
-  }
-  public void setNumSeatsBusiness(){
-    Main.NumSeatsBusiness--;
-  }
 
 
 
   //accessors
-  public String getAirline()          {return Airline;}
   public String getCityDeparture()    {return CityDeparture;}
   public String getCityDestination()  {return CityDestination;}
   public String getDateDeparture()    {return DateDeparture;}
   public String getTimeDeparture()    {return TimeDeparture;}
   public String getFlightNum()           {return FlightNum;}
-  public int getNumSeatsEconomy()     {return Main.NumSeatsEconomy;}
-  public int getNumSeatsBusiness()    {return Main.NumSeatsBusiness;}
 
 }
 
