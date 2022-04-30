@@ -19,11 +19,11 @@ public class TextPrompt extends JLabel
   public enum Show {
     ALWAYS,
     FOCUS_GAINED,
-    FOCUS_LOST;
+    FOCUS_LOST
   }
 
-  private JTextComponent component;
-  private Document document;
+  private final JTextComponent component;
+  private final Document document;
 
   private Show show;
   private boolean showPromptOnce;
@@ -159,17 +159,11 @@ public class TextPrompt extends JLabel
     //  prompt should be displayed.
 
     if (component.hasFocus()) {
-      if (show == Show.ALWAYS
-              || show == Show.FOCUS_GAINED)
-        setVisible(true);
-      else
-        setVisible(false);
+      setVisible(show == Show.ALWAYS
+              || show == Show.FOCUS_GAINED);
     } else {
-      if (show == Show.ALWAYS
-              || show == Show.FOCUS_LOST)
-        setVisible(true);
-      else
-        setVisible(false);
+      setVisible(show == Show.ALWAYS
+              || show == Show.FOCUS_LOST);
     }
   }
 
